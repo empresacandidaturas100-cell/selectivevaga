@@ -1,0 +1,107 @@
+/* Identidade e layout geral */
+body { background: #ffffff; }
+:root { --header-height: 90px; }
+.page-wrapper { min-height: 100vh; padding-top: calc(var(--header-height) + 40px); }
+
+/* Correções tipográficas e quebras para textos longos */
+.text-break { word-break: break-word; overflow-wrap: anywhere; }
+p, li, strong { word-wrap: break-word; }
+
+/* Header */
+#site-header { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: #ffffff !important; }
+#site-header .container { position: relative; }
+#site-header .header { height: var(--header-height); display: flex; align-items: center; justify-content: center; padding: 0; background: #ffffff !important; }
+
+.header--logo {
+    max-height: 130px; /* Aumentado de 70px para 90px */
+    display: block;
+}
+
+/* NOVO: Estilo para o texto SELEÇÃO */
+.header--selecao-text { position: absolute; left: 50%; transform: translateX(-50%); font-size: 48px; font-weight: 700; color: #080808; line-height: 1; }
+.header a { position: absolute; left: 0; display: inline-flex; align-items: center; }
+
+/* Altura/placeholder do sticky header para manter o layout do tema */
+.stricky-header { height: 0; visibility: hidden; }
+
+/* Botões temáticos herdando do tema */
+.thm-btn { text-transform: none; letter-spacing: .2px; }
+.thm-btn {
+  background: linear-gradient(90deg, #0b5ed7 0%, #0a58ca 100%);
+  color: #000000 !important;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: transform .15s ease, box-shadow .15s ease, background .3s ease;
+  box-shadow: 0 6px 18px rgba(11, 88, 202, .2);
+}
+.thm-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 22px rgba(11, 88, 202, .28); }
+.thm-btn:active { transform: translateY(0); box-shadow: 0 4px 12px rgba(11, 88, 202, .22); }
+.thm-btn:focus { outline: 3px solid rgba(11, 88, 202, .25); outline-offset: 2px; }
+.thm-btn:disabled { opacity: .6; cursor: not-allowed; filter: grayscale(10%); box-shadow: none; }
+
+/* Área do candidato */
+.candidate-hero { padding: 72px 0 96px; background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%); }
+.candidate-hero .badge { border-radius: 999px; box-shadow: 0 4px 12px rgba(25, 135, 84, .15); }
+.candidate-hero__title { font-family: "Teko", sans-serif; font-size: 56px; line-height: 1.05; text-transform: uppercase; margin-bottom: 6px; letter-spacing: .4px; }
+.candidate-hero__subtitle { font-family: "Manrope", sans-serif; font-size: 18px; color: #5c6b7a; margin-bottom: 24px; }
+
+.candidate-hero__card {
+  border-radius: 16px;
+  border: 1px solid #e6ecf2;
+  background: #ffffff;
+  padding: 24px;
+  max-width: 720px;
+  margin: 0 auto;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  box-shadow: 0 8px 24px rgba(2, 32, 71, 0.06);
+  animation: fadeUp .6s ease both;
+}
+.candidate-hero__card:hover { transform: translateY(-2px); box-shadow: 0 14px 34px rgba(2, 32, 71, 0.09); border-color: #dbe6f2; }
+
+/* Ícones da lista (Font Awesome) com visual de marcador */
+.candidate-hero__card .icon-circle { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background: #f2f6fb; }
+.candidate-hero__card .icon-circle svg { width: 18px; height: 18px; display: block; }
+.candidate-hero__card small { font-size: 12px; letter-spacing: .3px; }
+.candidate-hero__card strong { color: #0b1a2b; }
+.candidate-hero__cta { margin-top: 14px; }
+.benefits-list li { color: #000000; font-weight: 700; }
+
+/* Card comemorativo */
+.candidate-hero__card[style*="linear-gradient"] { border: 1px solid #e8f6e7; }
+.candidate-hero__card[style*="linear-gradient"] .badge { box-shadow: 0 4px 12px rgba(13, 110, 253, .15); }
+.candidate-hero__card .display-5 { font-size: 40px; }
+
+/* Animação leve */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+.row.g-4 > .col-12:nth-child(1) .candidate-hero__card { animation-delay: .05s; }
+.row.g-4 > .col-12:nth-child(2) .candidate-hero__card { animation-delay: .15s; }
+
+/* Badges de etapas 
+   - herdamos .badge do Bootstrap e agregamos leve interação */
+.candidate-hero .badge.bg-primary,
+.candidate-hero .badge.bg-warning,
+.candidate-hero .badge.bg-info { padding: 8px 12px; border-radius: 999px; box-shadow: 0 2px 8px rgba(2, 32, 71, 0.08); transition: transform .15s ease, box-shadow .15s ease; }
+.candidate-hero .badge:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(2, 32, 71, 0.12); }
+
+/* Responsividade */
+@media (max-width: 575.98px) {
+  :root { --header-height: 60px; }
+  .candidate-hero { padding: 48px 0 72px; }
+  .candidate-hero__title { font-size: 40px; }
+  .candidate-hero__subtitle { font-size: 16px; }
+  .candidate-hero__card { padding: 18px; border-radius: 14px; }
+  
+  /* NOVO: Ajuste para telas pequenas */
+  .header--selecao-text {
+    font-size: 32px; /* Reduz o tamanho para caber no celular */
+    margin-left: 10px;
+  }
+}
+
+/* Acessibilidade: reduz movimento se o usuário preferir */
+@media (prefers-reduced-motion: reduce) {
+  .candidate-hero__card,
+  .candidate-hero .badge,
+  .thm-btn { transition: none; animation: none; }
+}
