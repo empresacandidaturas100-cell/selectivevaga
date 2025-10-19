@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parabéns! Você Foi Aceito(a)! - VERZANI & SANDRINI</title>
+    <style>
+        /* Estilos baseados no logo EUNOSUPERMERCADO: Fundo escuro (#1F2937, quase o tom do EU), Texto de destaque amarelo (#FFD700) */
+        :root {
+            --cor-principal-escura: #2C3E50; /* Um azul/roxo escuro, semelhante ao 'EU' */
+            --cor-destaque-amarela: #FFC107; /* O amarelo vibrante do 'NO SUPERMERCADO' */
+            --cor-fundo-clara: #F4F7F6;
+            --cor-texto-claro: #ECF0F1;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--cor-fundo-clara);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 90%;
+            text-align: center;
+            position: relative; /* Para garantir que o modal cubra */
+            z-index: 1;
+        }
+
+        /* Título Principal */
+        .header {
+            background-color: var(--cor-principal-escura);
+            color: var(--cor-texto-claro);
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            margin: -40px -40px 30px -40px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Subtítulo */
+        h2 {
+            color: var(--cor-destaque-amarela);
+            font-size: 1.5em;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        /* Seção de Benefícios */
+        .beneficios-section {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        
+        /* Faixa Salarial */
+        .faixa-salarial {
+            background-color: var(--cor-destaque-amarela);
+            color: var(--cor-principal-escura);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2em;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .beneficios-section h3 {
+            color: var(--cor-principal-escura);
+            border-bottom: 3px solid var(--cor-destaque-amarela);
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        /* Tabela de Benefícios */
+        .tabela-beneficios {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px; /* Espaçamento entre linhas */
+        }
+
+        .tabela-beneficios th, .tabela-beneficios td {
+            padding: 12px;
+        }
+
+        .tabela-beneficios tr:nth-child(odd) {
+            background-color: #f9f9f9;
+        }
+
+        .tabela-beneficios th {
+            background-color: var(--cor-principal-escura);
+            color: var(--cor-texto-claro);
+            text-align: left;
+            border-radius: 5px 0 0 5px;
+        }
+        
+        .tabela-beneficios td:last-child {
+              background-color: #f0f0f0;
+              border-radius: 0 5px 5px 0;
+              font-weight: bold;
+        }
+
+        /* Mensagem de Carreira */
+        .mensagem-carreira {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #E8F8F5; /* Um fundo suave para destaque */
+            border-radius: 8px;
+            border-left: 5px solid var(--cor-principal-escura);
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: #444;
+            text-align: center;
+        }
+
+
+        /* Botão de Ação */
+        .call-to-action {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+
+        .botao-admissao {
+            display: inline-block;
+            padding: 15px 35px;
+            font-size: 1.1em;
+            color: #fff;
+            background-color: var(--cor-destaque-amarela);
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .botao-admissao:hover {
+            background-color: #ffaa00; /* Um pouco mais escuro no hover */
+            transform: translateY(-2px);
+        }
+        
+        /* ----------------------- ESTILOS DO MODAL (POP-UP) ----------------------- */
+        .modal {
+            display: none; /* Escondido por padrão */
+            position: fixed; /* Fica fixo na tela */
+            z-index: 100; /* Alto z-index para ficar acima de tudo */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Permite rolagem se necessário */
+            background-color: rgba(0, 0, 0, 0.7); /* Fundo preto semi-transparente */
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% do topo e centralizado */
+            padding: 30px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.5s;
+            text-align: center;
+        }
+        
+        .modal-content h3 {
+            color: var(--cor-destaque-amarela);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .modal-content p {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .modal-button {
+            background-color: var(--cor-principal-escura);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        .modal-button:hover {
+            background-color: #3d5a7d;
+        }
+        
+        @keyframes fadeIn {
+            from {opacity: 0; transform: scale(0.95);}
+            to {opacity: 1; transform: scale(1);}
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="admissaoModal" class="modal">
+        <div class="modal-content">
+            <h3>🔔 ATENÇÃO! APROVAÇÃO CONFIRMADA!</h3>
+            <p>
+                Se você está nessa página, é porque VOCÊ FOI ACEITO(A) no nosso processo seletivo! 
+            </p>
+            <p>
+                Agora, só precisamos que você dê entrada na GUIA DE EXAMES ADMISSIONAIS! Após a conclusão, você receberá novas informações sobre uma reunião para conhecer nossa empresa e começar a trabalhar conosco!
+            </p>
+            <button class="modal-button" onclick="closeModal()">Entendi! Prosseguir para a leitura</button>
+        </div>
+    </div>
+    <div class="container">
+        
+        <div class="header">
+            <h1>🎉 Parabéns! Você Foi Aceito(a) na VERZANI & SANDRINI! 🚀</h1>
+        </div>
+
+        <h2>Caro(a) Candidato(a),</h2>
+
+        <p>É com grande satisfação que anunciamos: VOCÊ FOI ACEITO(A) no nosso processo seletivo!</p>
+        <p>Seu talento e dedicação nos impressionaram. Estamos muito entusiasmados para tê-lo(a) em nossa equipe e para dar as boas-vindas ao seu futuro VERZANI & SANDRINI !</p>
+
+        <div class="faixa-salarial">
+            💰 Faixa Salarial: De R$ 2.370,00 a R$ 3.498,00 (dependendo do cargo e experiência)
+        </div>
+
+        <div class="beneficios-section">
+            <h3>Seus Benefícios Exclusivos:</h3>
+            
+            <table class="tabela-beneficios">
+                <thead>
+                    <tr>
+                        <th style="width: 35%;">Benefício</th>
+                        <th style="width: 65%; border-radius: 0 5px 5px 0; background-color: var(--cor-principal-escura);">Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vale Alimentação</td>
+                        <td>Para suas compras do dia a dia.</td>
+                    </tr>
+                    
+                    <tr>
+                        <td>Assistência Médica</td>
+                        <td>Cobertura de saúde completa para você.</td>
+                    </tr>
+                    <tr>
+                        <td>Assistência Odontológica</td>
+                        <td>Cuidado com a sua saúde bucal.</td>
+                    </tr>
+                
+                    
+                    <tr>
+                        <td>13º Salário</td>
+                        <td>Direito garantido.</td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mensagem-carreira">
+            É muito importante ter você conosco! Conte com a Verzani & Sandrini para montar e desenvolver sua carreira. Seu crescimento é o nosso sucesso!
+        </div>
+
+        <p>O último passo para formalizar sua contratação é o Exame de Admissão.</p>
+        <p>Clique no botão abaixo para prosseguir e receber todas as informações sobre agendamento, localização e documentos necessários:</p>
+
+        <div class="call-to-action">
+            <a href="integracao.html" class="botao-admissao">
+                Prosseguir para o Exame de Admissão
+            </a>
+        </div>
+        
+        <p style="margin-top: 30px; font-size: 0.9em; color: #666;">
+            Atenciosamente,<br>
+            A Equipe de RH da Verzani & Sandrini.
+        </p>
+
+    </div>
+
+    <script>
+        // Obtém o modal
+        var modal = document.getElementById("admissaoModal");
+
+        // Função para fechar o modal
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // Exibe o modal assim que a página é carregada
+        window.onload = function() {
+            modal.style.display = "block";
+        }
+
+        // Fecha o modal se o usuário clicar fora dele
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
